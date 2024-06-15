@@ -25,13 +25,9 @@ class Users:
             assert response.ok, f"Returned response with status code: {response.status_code}"
         return response
 
-    def update_user(self, user_id, success_response=True):
-        payload = user_payload
+    def update_user(self, user_id, payload, success_response=True):
         payload['id'] = user_id
-        payload['firstName'] = GenerateStringMethods().generate_random_string(10)
-        payload['lastName'] = GenerateStringMethods().generate_random_string(10)
-        payload['email'] = GenerateStringMethods().generate_random_email(10)
-        response = requests.post(url=self.url, json=payload)
+        response = requests.put(url=self.url + f"/{user_id}", json=payload)
         if success_response:
             assert response.ok, f"Returned response with status code: {response.status_code}"
         return response
