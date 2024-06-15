@@ -27,5 +27,3 @@ class GenerateStringMethods:
     @staticmethod
     def generate_random_email(characters):
         return ''.join(choice(ascii_uppercase) for _ in range(characters)) + "@gmail.com"
-
-

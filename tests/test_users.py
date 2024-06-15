@@ -20,19 +20,25 @@ class TestUsers:
         response = Users().update_user(user_id, payload)
         ValidateResponse().validate_response(response, schema)
 
-    def test_failed_update_user(self, create_user):
-        """Test to verify unsuccessful user update"""
-        user_id = create_user.json()["id"]
-        payload = {'NewField': "UserUpdated"}
+    def test_failed_update_user(self, purge_data):
+        """Test to verify unsuccessful user update, non-existed user"""
+        user_id = 1
+        payload = {'firstName': "UserUpdated"}
         response = Users().update_user(user_id, payload, success_response=False)
         assert response.status_code == 404, f"Status code 404 should be returned instead of {response.status_code}"
 
-    def test_get_all_users(self, purge_data, create_user):
+    def test_update_user_unexpected_field(self, create_user):
+        """Test to verify unsuccessful user update, unexpected field"""
+        user_id = create_user.json()["id"]
+        payload = {'NewField': "UserUpdated"}
+        response = Users().update_user(user_id, payload, success_response=False)
+        assert not response.ok, f"Status code returned: {response.status_code}"
+
+    def test_get_all_users(self, create_user):
         """Test to verify retrieving all users list"""
-        schema = FileMethods().get_json_file("/infrastructure/data/response_schema/get_user_schema.json")
+        schema = FileMethods().get_json_file("/infrastructure/data/response_schema/get_users_schema.json")
         response = Users().get_users()
         ValidateResponse().validate_response(response, schema)
-
 
     def test_get_user(self, create_user):
         """Test to verify retrieving user by id"""
@@ -41,9 +47,8 @@ class TestUsers:
         response = Users().get_users(user_id)
         ValidateResponse().validate_response(response, schema)
 
-    def test_get_unlisted_user(self, purge_data):
+    def test_get_no_existed_user(self, purge_data):
         """Test to verify retrieving user by non-existed id"""
         user_id = 1
         response = Users().get_users(user_id, success_response=False)
         assert response.status_code == 404, f"Status code 404 should be returned instead of {response.status_code}"
-

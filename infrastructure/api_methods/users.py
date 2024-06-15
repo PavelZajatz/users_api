@@ -36,4 +36,3 @@ class Users:
         url = self.url + "/reset"
         response = requests.post(url=url)
         assert response.ok, f"Returned response with status code: {response.status_code}"
-

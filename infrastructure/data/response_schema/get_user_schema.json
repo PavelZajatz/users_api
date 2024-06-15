@@ -21,7 +21,7 @@
           "type": "string"
         },
         "isactive": {
-          "type": "string"
+          "type": "boolean"
         },
         "lastLogin": {
           "type": "integer"
