@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "array",
+  "items": [
+    {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "created": {
+          "type": "string"
+        },
+        "isactive": {
+          "type": "string"
+        },
+        "lastLogin": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "firstName",
+        "lastName",
+        "email"
+      ]
+    }
+  ]
+}
